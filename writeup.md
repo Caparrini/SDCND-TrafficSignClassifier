@@ -80,7 +80,7 @@ My final model is the LeNet architecture model consisted of the following layers
 | Convolution 5x5     	| 1x1 stride, same padding, outputs 28x28x6 	|
 | RELU					|		Activation										|
 | Max pooling	      	| 2x2 stride,  outputs 14x14x6 				|
-| Convolution 5x5	    | 1x1 stride, same padding, outputs 10x10x16    									|
+| Convolution 5x5	    | 1x1 stride, same padding, outputs 10x10x32    									|
 | RELU					|	Activation											|
 | Max pooling	      	| 2x2 stride,  outputs 5x5x32 				|
 |		Flatten				|	Input 5x5x32 - Output 800											|
@@ -90,12 +90,18 @@ My final model is the LeNet architecture model consisted of the following layers
 | RELU					|		Activation										|
 | Fully connected		| Input 84 - Output 43      									|
 
+I opted for this architecture due to the fact that is a neural network architecture use in image recognition that worked in the MNIST Data. I modified the output of the second convolutional layer to give 32 outputs instead of the 16 of the original LeNet. This improved the accuracy of the model.
+
 
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-To train the model, I used the configuration of the LeNet architecture.
+To train the model, I used the next values:
 * EPOCH = 40
 * BATCHSIZE = 128
+* rate = 0.001
+
+I used this learning rate to not overfit the model. The number of epochs was decided training diferent model with diferent epoch values. More than 40 epochs began to diminished the accuracy of each epoch. The optimizing algorithm used was Adam because it was the recommended in the course lecture and it is improved over gradient descent. I let mu and sigma with the given values of mu=0 and sigma=0.1.
+
 
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
@@ -103,6 +109,8 @@ My final model results were:
 * training set accuracy of 0.957
 * validation set accuracy of 0.929
 * test set accuracy of 0.800
+
+I tried diferent modifications in the LeNet architecture trying to get more training and validation accuracy. I did not add more layers but modified the outputs in one of the convolutional layers (16 filters to 32 as mentioned before). In addiction, I played around with the values of epochs, batchsize and learning rate until I get this final configuration with acceptable final accuracy to test in the test set. The learning rate is low avoiding overfit, the number of epochs is adjusted to the point more training do not improve the model and the batchsize is the which gives me better result.
  
 
 ### Test a Model on New Images
@@ -113,6 +121,8 @@ Here are five German traffic signs that I found on the web:
 
 ![alt text][image4] ![alt text][image5] ![alt text][image6] 
 ![alt text][image7] ![alt text][image8]
+
+They do not have any particular qualities that might make the classification difficult. All of them are well iluminated and clean without things obstaculizing the signs or draws on them. The model will have good chances to predict the signals.
 
 
 #### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
